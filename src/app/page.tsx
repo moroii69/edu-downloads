@@ -11,18 +11,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 // TypographyH1 component
-function TypographyH1() {
+export function TypographyH1() {
   return (
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
-      Access assignment and surprise test Q/A
+      Access{" "}
+      <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
+        assignment
+      </span>{" "}
+      and{" "}
+      <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
+        surprise test
+      </span>{" "}
+      Q/A.
     </h1>
   );
 }
 
+
 // Updated TypographyMuted component with a more professional message
-function TypographyMuted() {
+export function TypographyMuted() {
   return (
     <p className="text-sm" style={{ color: "rgb(161, 161, 170)" }}>
       Please select the appropriate options.
@@ -31,11 +51,11 @@ function TypographyMuted() {
 }
 
 // Footer component
-function Footer() {
+export function Footer() {
   return (
     <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
       <p className="mb-4">
-        developed by{" "}
+        designed by{" "}
         <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
           ufraaan
         </a>
@@ -53,7 +73,6 @@ export default function Home() {
 
   const handleDownload = () => {
     if (allSelected) {
-      // Adjust this URL based on how you serve files from the backend
       const filePath = `http://localhost:5000/data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
       window.location.href = filePath;
     }
@@ -78,7 +97,7 @@ export default function Home() {
           </SelectTrigger>
           <SelectContent className="bg-gray-800 text-white border-gray-700">
             <SelectGroup>
-              <SelectLabel>Options</SelectLabel>
+              <SelectLabel className="text-gray-500">Options</SelectLabel>
               <SelectItem value="assignment">Assignment</SelectItem>
               <SelectItem value="surprise-test">Surprise Test</SelectItem>
             </SelectGroup>
@@ -92,7 +111,7 @@ export default function Home() {
           </SelectTrigger>
           <SelectContent className="bg-gray-800 text-white border-gray-700">
             <SelectGroup>
-              <SelectLabel>Subjects</SelectLabel>
+              <SelectLabel className="text-gray-500">Subjects</SelectLabel>
               <SelectItem value="ec">Engineering Chemistry</SelectItem>
               <SelectItem value="epc">English for Professional Communication</SelectItem>
               <SelectItem value="bee">Basic Electrical Engineering</SelectItem>
@@ -109,7 +128,7 @@ export default function Home() {
           </SelectTrigger>
           <SelectContent className="bg-gray-800 text-white border-gray-700">
             <SelectGroup>
-              <SelectLabel>Numbers</SelectLabel>
+              <SelectLabel className="text-gray-500">Numbers</SelectLabel>
               <SelectItem value="1">1</SelectItem>
               <SelectItem value="2">2</SelectItem>
               <SelectItem value="3">3</SelectItem>
@@ -125,6 +144,31 @@ export default function Home() {
         }`}
       >
         <Button variant="secondary" onClick={handleDownload}>Download</Button>
+      </div>
+
+      {/* Alert Dialog Trigger */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive">Contribute by Sharing Files</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Share Your Files</AlertDialogTitle>
+              <AlertDialogDescription>
+                We invite you to contribute by sharing files. Your contributions help improve our resources. Click below to fill out the form.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <Button onClick={() => window.open("https://forms.gle/4LzLiz8suarAj29H6", "_blank", "noopener,noreferrer")}>
+                  Go to Form
+                </Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
       {/* Footer */}
