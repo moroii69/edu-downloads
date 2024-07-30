@@ -41,7 +41,7 @@ export function TypographyMuted() {
   );
 }
 
-export default function Home() {
+export default function Page() {
   const [firstValue, setFirstValue] = React.useState<string | null>(null);
   const [secondValue, setSecondValue] = React.useState<string | null>(null);
   const [thirdValue, setThirdValue] = React.useState<string | null>(null);
@@ -58,13 +58,10 @@ export default function Home() {
     }
 
     if (filePath) {
-      if (process.env.NODE_ENV === "development") {
-        // For local development
-        window.location.href = `http://localhost:5000/${filePath}`;
-      } else {
-        // For production
-        window.location.href = `https://edu-downloads.vercel.app/${filePath}`;
-      }
+      const baseUrl = process.env.NODE_ENV === "development"
+        ? `http://localhost:5000/${filePath}`
+        : `https://edu-downloads.vercel.app/${filePath}`;
+      window.location.href = baseUrl;
     }
   };
 
