@@ -23,17 +23,25 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-// TypographyH1 component
-export function TypographyH1() {
+// TypographyH1 Component
+function TypographyH1() {
   return (
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
-      Access <span className="underline">assignment</span> and <span className="underline">surprise test</span> Q/A
+      Access{" "}
+      <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
+        assignment
+      </span>{" "}
+      and{" "}
+      <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
+        surprise test
+      </span>{" "}
+      Q/A.
     </h1>
   );
 }
 
-// Updated TypographyMuted component with a more professional message
-export function TypographyMuted() {
+// TypographyMuted Component
+function TypographyMuted() {
   return (
     <p className="text-sm" style={{ color: "rgb(161, 161, 170)" }}>
       Please select the appropriate options.
@@ -41,7 +49,21 @@ export function TypographyMuted() {
   );
 }
 
-export default function Page() {
+// Footer Component
+function Footer() {
+  return (
+    <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
+      <p className="mb-4">
+        designed by{" "}
+        <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
+          ufraaan
+        </a>
+      </p>
+    </footer>
+  );
+}
+
+export default function Home() {
   const [firstValue, setFirstValue] = React.useState<string | null>(null);
   const [secondValue, setSecondValue] = React.useState<string | null>(null);
   const [thirdValue, setThirdValue] = React.useState<string | null>(null);
@@ -58,10 +80,13 @@ export default function Page() {
     }
 
     if (filePath) {
-      const baseUrl = process.env.NODE_ENV === "development"
-        ? `http://localhost:5000/${filePath}`
-        : `https://edu-downloads.vercel.app/${filePath}`;
-      window.location.href = baseUrl;
+      if (process.env.NODE_ENV === "development") {
+        // For local development
+        window.location.href = `http://localhost:5000/${filePath}`;
+      } else {
+        // For production
+        window.location.href = `https://edu-downloads.vercel.app/${filePath}`;
+      }
     }
   };
 
@@ -159,14 +184,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
-        <p className="mb-4">
-          designed by{" "}
-          <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
-            ufraaan
-          </a>
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }
