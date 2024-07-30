@@ -23,46 +23,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-// TypographyH1 component
-export function TypographyH1() {
-  return (
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
-      Access{" "}
-      <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
-        assignment
-      </span>{" "}
-      and{" "}
-      <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
-        surprise test
-      </span>{" "}
-      Q/A.
-    </h1>
-  );
-}
-
-
-// Updated TypographyMuted component with a more professional message
-export function TypographyMuted() {
-  return (
-    <p className="text-sm" style={{ color: "rgb(161, 161, 170)" }}>
-      Please select the appropriate options.
-    </p>
-  );
-}
-
-// Footer component
-export function Footer() {
-  return (
-    <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
-      <p className="mb-4">
-        designed by{" "}
-        <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
-          ufraaan
-        </a>
-      </p>
-    </footer>
-  );
-}
+// Custom CSS class for underline with opacity
+const underlineStyle = "relative inline-block after:absolute after:block after:bg-current after:h-[2px] after:w-full after:bottom-[-1px] after:left-0 after:opacity-50 after:transition-all";
 
 export default function Home() {
   const [firstValue, setFirstValue] = React.useState<string | null>(null);
@@ -81,11 +43,15 @@ export default function Home() {
   return (
     <main className="relative flex min-h-screen bg-black items-center justify-center flex-col p-4">
       {/* TypographyH1 Component */}
-      <TypographyH1 />
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
+        Access <span className={underlineStyle}>assignment</span> and <span className={underlineStyle}>surprise test</span> Q/A
+      </h1>
 
       {/* TypographyMuted Component */}
       <div className="mb-6">
-        <TypographyMuted />
+        <p className="text-sm" style={{ color: "rgb(161, 161, 170)" }}>
+          Please select the appropriate options.
+        </p>
       </div>
 
       {/* Dropdowns in Landscape Mode */}
@@ -172,7 +138,14 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <Footer />
+      <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
+        <p className="mb-4">
+          designed by{" "}
+          <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
+            ufraaan
+          </a>
+        </p>
+      </footer>
     </main>
   );
 }
