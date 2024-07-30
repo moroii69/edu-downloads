@@ -23,8 +23,23 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-// Custom CSS class for underline with opacity
-const underlineStyle = "relative inline-block after:absolute after:block after:bg-current after:h-[2px] after:w-full after:bottom-[-1px] after:left-0 after:opacity-50 after:transition-all";
+// TypographyH1 component
+export function TypographyH1() {
+  return (
+    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
+      Access <span className="underline">assignment</span> and <span className="underline">surprise test</span> Q/A
+    </h1>
+  );
+}
+
+// Updated TypographyMuted component with a more professional message
+export function TypographyMuted() {
+  return (
+    <p className="text-sm" style={{ color: "rgb(161, 161, 170)" }}>
+      Please select the appropriate options.
+    </p>
+  );
+}
 
 export default function Home() {
   const [firstValue, setFirstValue] = React.useState<string | null>(null);
@@ -34,24 +49,33 @@ export default function Home() {
   const allSelected = firstValue && secondValue && thirdValue;
 
   const handleDownload = () => {
-    if (allSelected) {
-      const filePath = `http://localhost:5000/data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
-      window.location.href = filePath;
+    let filePath = "";
+
+    if (firstValue === "assignment") {
+      filePath = `data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
+    } else if (firstValue === "surprise-test") {
+      filePath = `data/st/${secondValue}/${thirdValue}/rtg.pdf`;
+    }
+
+    if (filePath) {
+      if (process.env.NODE_ENV === "development") {
+        // For local development
+        window.location.href = `http://localhost:5000/${filePath}`;
+      } else {
+        // For production
+        window.location.href = `https://edu-downloads.vercel.app/${filePath}`;
+      }
     }
   };
 
   return (
     <main className="relative flex min-h-screen bg-black items-center justify-center flex-col p-4">
       {/* TypographyH1 Component */}
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
-        Access <span className={underlineStyle}>assignment</span> and <span className={underlineStyle}>surprise test</span> Q/A
-      </h1>
+      <TypographyH1 />
 
       {/* TypographyMuted Component */}
       <div className="mb-6">
-        <p className="text-sm" style={{ color: "rgb(161, 161, 170)" }}>
-          Please select the appropriate options.
-        </p>
+        <TypographyMuted />
       </div>
 
       {/* Dropdowns in Landscape Mode */}
