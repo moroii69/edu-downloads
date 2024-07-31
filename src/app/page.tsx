@@ -74,18 +74,18 @@ const handleDownload = () => {
   let filePath = "";
 
   if (firstValue === "assignment") {
-    filePath = `data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
+    filePath = `public/data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
   } else if (firstValue === "surprise-test") {
-    filePath = `data/st/${secondValue}/${thirdValue}/rtg.pdf`;
+    filePath = `public/data/st/${secondValue}/${thirdValue}/rtg.pdf`;
   }
 
   if (filePath) {
     if (process.env.NODE_ENV === "development") {
       // For local development
-      window.location.href = `/${filePath}`;
+      window.location.href = `http://localhost:5000/public/${filePath}`;
     } else {
       // For production
-      window.location.href = `https://edu-downloads.vercel.app/${filePath}`;
+      window.location.href = `/${filePath}`;
     }
   }
 };

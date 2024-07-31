@@ -8,8 +8,8 @@ const port = 5000;
 // Middleware to enable CORS
 app.use(cors());
 
-// Serve static files from the 'data' directory
-app.use('/data', express.static(path.join(__dirname, 'data')));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Handle other routes
 app.get('/', (req, res) => {
