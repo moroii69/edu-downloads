@@ -73,22 +73,25 @@ export default function Home() {
 const handleDownload = () => {
   let filePath = "";
 
+  // Construct file path based on selected values
   if (firstValue === "assignment") {
-    filePath = `public/data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
+    filePath = `data/ass/${secondValue}/${thirdValue}/rtg.pdf`;
   } else if (firstValue === "surprise-test") {
-    filePath = `public/data/st/${secondValue}/${thirdValue}/rtg.pdf`;
+    filePath = `data/st/${secondValue}/${thirdValue}/rtg.pdf`;
   }
 
+  // Open the file path based on the environment
   if (filePath) {
     if (process.env.NODE_ENV === "development") {
       // For local development
-      window.location.href = `http://localhost:5000/public/${filePath}`;
+      window.location.href = `http://localhost:5000/${filePath}`;
     } else {
       // For production
       window.location.href = `/${filePath}`;
     }
   }
 };
+
 
 
   return (
