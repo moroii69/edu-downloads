@@ -174,14 +174,13 @@ export default function Home() {
           <AlertDialogHeader>
             <AlertDialogTitle>File Not Found</AlertDialogTitle>
             <AlertDialogDescription>
-              Sorry, the file you are looking for could not be found. Please contact the administrator at{" "}
+              Sorry, the file you are looking for could not be found. Please contact the administrator at{' '}
               <a
                 href="mailto:ufraan.work@gmail.com"
-                className="underline"
-                style={{ color: "rgb(161, 161, 170)" }}
+                style={{ textDecoration: 'underline', color: 'inherit' }}
               >
                 ufraan.work@gmail.com
-              </a>{" "}
+              </a>{' '}
               for assistance.
             </AlertDialogDescription>
           </AlertDialogHeader>
