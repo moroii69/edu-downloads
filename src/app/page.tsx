@@ -22,11 +22,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useState } from "react";
 
 // TypographyH1 Component
 function TypographyH1() {
   return (
-    <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl text-white mb-6">
+    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white mb-6">
       Access{" "}
       <span className="underline" style={{ textDecorationColor: "rgba(255, 255, 255, 0.5)" }}>
         assignment
@@ -52,8 +53,8 @@ function TypographyMuted() {
 // Footer Component
 function Footer() {
   return (
-    <footer className="fixed bottom-0 left-0 w-full text-sm text-center py-2 bg-black" style={{ color: "rgb(161, 161, 170)" }}>
-      <p className="mb-0">
+    <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
+      <p className="mb-4">
         developed by{" "}
         <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
           ufraaan
@@ -67,10 +68,11 @@ export default function Home() {
   const [firstValue, setFirstValue] = React.useState<string | null>(null);
   const [secondValue, setSecondValue] = React.useState<string | null>(null);
   const [thirdValue, setThirdValue] = React.useState<string | null>(null);
+  const [showAlert, setShowAlert] = React.useState<boolean>(false);
 
   const allSelected = firstValue && secondValue && thirdValue;
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     let filePath = "";
 
     // Construct file path based on selected values
@@ -80,45 +82,26 @@ export default function Home() {
       filePath = `data/st/${secondValue}/${thirdValue}/rtg.pdf`;
     }
 
-    // Open the file path based on the environment
     if (filePath) {
-      if (process.env.NODE_ENV === "development") {
-        // For local development
-        window.location.href = `http://localhost:5000/${filePath}`;
-      } else {
-        // For production
-        window.location.href = `/${filePath}`;
+      try {
+        // Check if the file exists
+        const response = await fetch(`/${filePath}`, { method: "HEAD" });
+        if (response.ok) {
+          // File exists, open it
+          window.location.href = `/${filePath}`;
+        } else {
+          // File does not exist, show alert dialog
+          setShowAlert(true);
+        }
+      } catch (error) {
+        console.error("Error checking file:", error);
+        setShowAlert(true);
       }
     }
   };
 
   return (
     <main className="relative flex min-h-screen bg-black items-center justify-center flex-col p-4">
-      {/* Contribute by Sharing Files Button */}
-      <div className="fixed top-4 right-4 z-50">
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive">Contribute by Sharing Files</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Share Your Files</AlertDialogTitle>
-              <AlertDialogDescription>
-                We invite you to contribute by sharing files. Your contributions help improve our resources. Click below to fill out the form.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-                <Button onClick={() => window.open("https://forms.gle/4LzLiz8suarAj29H6", "_blank", "noopener,noreferrer")}>
-                  Go to Form
-                </Button>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
-
       {/* TypographyH1 Component */}
       <TypographyH1 />
 
@@ -128,10 +111,10 @@ export default function Home() {
       </div>
 
       {/* Dropdowns in Landscape Mode */}
-      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 mb-6">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 mb-6">
         {/* First Dropdown */}
         <Select onValueChange={(value) => setFirstValue(value)}>
-          <SelectTrigger className="w-full sm:w-[180px] bg-gray-800 text-white border-gray-700">
+          <SelectTrigger className="w-[85%] md:w-[180px] bg-gray-800 text-white border-gray-700">
             <SelectValue placeholder="Select an option" />
           </SelectTrigger>
           <SelectContent className="bg-gray-800 text-white border-gray-700">
@@ -145,7 +128,7 @@ export default function Home() {
 
         {/* Second Dropdown */}
         <Select onValueChange={(value) => setSecondValue(value)}>
-          <SelectTrigger className="w-full sm:w-[180px] bg-gray-800 text-white border-gray-700">
+          <SelectTrigger className="w-[85%] md:w-[180px] bg-gray-800 text-white border-gray-700">
             <SelectValue placeholder="Select a subject" />
           </SelectTrigger>
           <SelectContent className="bg-gray-800 text-white border-gray-700">
@@ -162,7 +145,7 @@ export default function Home() {
 
         {/* Third Dropdown */}
         <Select onValueChange={(value) => setThirdValue(value)}>
-          <SelectTrigger className="w-full sm:w-[180px] bg-gray-800 text-white border-gray-700">
+          <SelectTrigger className="w-[85%] md:w-[180px] bg-gray-800 text-white border-gray-700">
             <SelectValue placeholder="Select a number" />
           </SelectTrigger>
           <SelectContent className="bg-gray-800 text-white border-gray-700">
@@ -184,6 +167,21 @@ export default function Home() {
       >
         <Button variant="secondary" onClick={handleDownload}>Download</Button>
       </div>
+
+      {/* Alert Dialog Trigger */}
+      <AlertDialog open={showAlert} onOpenChange={setShowAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>File Not Found</AlertDialogTitle>
+            <AlertDialogDescription>
+              Sorry, the file you are looking for could not be found. Please contact the administrator at ufraan.work@gmail.com for assistance.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setShowAlert(false)}>Close</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Footer */}
       <Footer />
