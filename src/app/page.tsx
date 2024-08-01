@@ -52,8 +52,8 @@ function TypographyMuted() {
 // Footer Component
 function Footer() {
   return (
-    <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
-      <p className="mb-4">
+    <footer className="fixed bottom-0 left-0 w-full text-sm text-center py-2 bg-black" style={{ color: "rgb(161, 161, 170)" }}>
+      <p className="mb-0">
         developed by{" "}
         <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
           ufraaan
