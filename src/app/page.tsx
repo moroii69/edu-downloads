@@ -23,6 +23,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";  // Import Analytics
 
 // TypographyH1 Component
 function TypographyH1() {
