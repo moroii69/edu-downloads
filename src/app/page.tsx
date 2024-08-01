@@ -55,14 +55,23 @@ function Footer() {
   return (
     <footer className="absolute bottom-0 w-full text-sm text-center mb-4" style={{ color: "rgb(161, 161, 170)" }}>
       <p className="mb-4">
-        developed by{" "}
+        designed by{" "}
         <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
           ufraaan
-        </a>
+        </a>{" "}
+        <span className="mx-2">|</span>{" "}
+        <a href="https://forms.gle/4LzLiz8suarAj29H6" target="_blank" rel="noopener noreferrer" className="underline">
+          click here
+        </a>{" "}
+        to share resources
+        <span className="mx-2">|</span>{" "}
+        <span className="text-gray-500">Semester 2 - Group B (2023-2024)</span>
       </p>
     </footer>
   );
 }
+
+
 
 export default function Home() {
   const [firstValue, setFirstValue] = React.useState<string | null>(null);
