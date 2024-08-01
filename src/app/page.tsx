@@ -56,7 +56,7 @@ function Footer() {
   return (
     <footer className="fixed bottom-0 left-0 w-full text-sm text-center py-2" style={{ backgroundColor: "#000", color: "rgb(161, 161, 170)" }}>
       <p className="mb-2">
-        designed by{" "}
+        developed by{" "}
         <a href="https://github.com/moroii69" target="_blank" rel="noopener noreferrer" className="underline">
           ufraaan
         </a>{" "}
